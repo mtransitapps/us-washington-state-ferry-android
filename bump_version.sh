@@ -1,4 +1,6 @@
 #!/bin/bash
+source ../commons/commons.sh
+echo ">> Bumping version...";
 VERSION_PROPERTIES="version.properties";
 if [ -f $VERSION_PROPERTIES ]; then
 	read -r LINE < $VERSION_PROPERTIES;
@@ -12,3 +14,4 @@ else
 	echo "File $VERSION_PROPERTIES doesn't exist!";
 	exit;
 fi
+echo ">> Bumping version... DONE";
