@@ -1,4 +1,6 @@
 #!/bin/bash
+source ../commons/commons.sh
+echo ">> GIT comnmiting version...";
 VERSION_PROPERTIES="version.properties";
 if [ -f $VERSION_PROPERTIES ]; then
 	readarray -t LINES < $VERSION_PROPERTIES;
@@ -11,3 +13,4 @@ else
 	echo "File $VERSION_PROPERTIES doesn't exist!";
 	exit;
 fi
+echo ">> GIT comnmiting version... DONE";
