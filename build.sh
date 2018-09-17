@@ -18,9 +18,11 @@ checkResult $RESULT;
 if [ -f $CUSTOM_SETTINGS_GRADLE_FILE ]; then
 	../gradlew -c $CUSTOM_SETTINGS_GRADLE_FILE :$DIRECTORY:clean :$DIRECTORY:assembleRelease :$DIRECTORY:copyReleaseApkToOutputDirs $GRADLE_ARGS;
 	RESULT=$?;
+	checkResult $RESULT;
 else
 	../gradlew :$DIRECTORY:clean :$DIRECTORY:assembleRelease :$DIRECTORY:copyReleaseApkToOutputDirs $GRADLE_ARGS;
 	RESULT=$?;
+	checkResult $RESULT;
 fi
 ./keys_cleanup.sh;
 RESULT=$?;

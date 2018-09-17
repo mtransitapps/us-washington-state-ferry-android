@@ -1,4 +1,8 @@
 #!/bin/bash
-declare -a FILES=("res/values/keys.xml" "keys.properties" "key-store-release.keystore");
+declare -a FILES=(
+	"key-store-release.keystore"
+	"keys.properties"
+	"res/values/keys.xml"
+);
 echo "Files:";
 printf '* "%s"\n' "${FILES[@]}";
