@@ -76,9 +76,31 @@ android {
             res.srcDirs += 'res-next'
             assets.srcDirs = ['assets']
         }
+        test {
+            java.srcDirs = ['srcTest']
+            resources.srcDirs = ['srcTest']
+        }
+        androidTest {
+            java.srcDirs = ['srcAndroidTest']
+            resources.srcDirs = ['srcAndroidTest']
+        }
 
         debug.setRoot('build-types/debug')
         release.setRoot('build-types/release')
+    }
+
+    testOptions {
+        unitTests {
+            includeAndroidResources = true
+            returnDefaultValues = true
+            // returnDefaultValues = false
+            all {
+                jvmArgs '-noverify'
+                testLogging {
+                    events 'passed', 'skipped', 'failed'
+                }
+            }
+        }
     }
 
     def publish = project.tasks.create("copyReleaseApkToOutputDirs")
