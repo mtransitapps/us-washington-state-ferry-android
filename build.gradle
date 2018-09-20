@@ -93,7 +93,6 @@ android {
         unitTests {
             includeAndroidResources = true
             returnDefaultValues = true
-            // returnDefaultValues = false
             all {
                 jvmArgs '-noverify'
                 testLogging {
