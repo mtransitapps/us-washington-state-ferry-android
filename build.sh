@@ -34,11 +34,17 @@ checkResult ${RESULT};
 echo ">> Gradle cleaning... DONE";
 
 if [ ${IS_CI} = true ]; then
-    echo ">> Running lint & test...";
-	../gradlew ${SETTINGS_FILE_ARGS} lint test ${GRADLE_ARGS};
+    echo ">> Running test...";
+	../gradlew ${SETTINGS_FILE_ARGS} :commons-android:test test ${GRADLE_ARGS};
 	RESULT=$?;
 	checkResult ${RESULT};
-    echo ">> Running lint & test... DONE";
+    echo ">> Running test... DONE";
+
+    echo ">> Running lint...";
+	../gradlew ${SETTINGS_FILE_ARGS} lint ${GRADLE_ARGS};
+	RESULT=$?;
+	checkResult ${RESULT};
+    echo ">> Running lint... DONE";
 
     echo ">> Running build & assemble...";
 	../gradlew ${SETTINGS_FILE_ARGS} build assemble ${GRADLE_ARGS};
