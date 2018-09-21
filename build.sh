@@ -5,6 +5,15 @@ echo ">> Building...";
 DIRECTORY=$(basename ${PWD});
 CUSTOM_SETTINGS_GRADLE_FILE="../settings.gradle.all";
 
+GIT_URL=$(git remote get-url origin); # git config --get remote.origin.url
+echo ">> Git URL: '$GIT_URL'.";
+GIT_PROJECT_NAME=$(basename -s .git ${GIT_URL});
+echo ">> Git project name: '$GIT_PROJECT_NAME'.";
+if [[ -z "${GIT_PROJECT_NAME}" ]]; then
+	echo "GIT_PROJECT_NAME not found!";
+	exit -1;
+fi
+
 IS_CI=false;
 if [[ ! -z "${CI}" ]]; then
 	IS_CI=true;
@@ -45,6 +54,23 @@ if [ ${IS_CI} = true ]; then
 	RESULT=$?;
 	checkResult ${RESULT};
     echo ">> Running lint... DONE";
+
+	declare -a SONAR_PROJECTS=("mtransit-for-android" "commons-android");
+	if contains ${GIT_PROJECT_NAME} ${SONAR_PROJECTS[@]}; then
+		if [[ -z "${MT_SONAR_LOGIN}" ]]; then
+			echo "MT_SONAR_LOGIN environment variable is NOT defined!";
+			exit -1;
+		fi
+		echo ">> Running sonar...";
+		../gradlew ${SETTINGS_FILE_ARGS} :${DIRECTORY}:sonarqube \
+			-Dsonar.organization=mtransitapps-github -Dsonar.projectName=$GIT_PROJECT_NAME \
+			-Dsonar.host.url=https://sonarcloud.io -Dsonar.login=${MT_SONAR_LOGIN} ${GRADLE_ARGS}
+		RESULT=$?;
+		checkResult ${RESULT};
+		echo ">> Running sonar... DONE";
+	else
+		echo ">> Skipping sonar for '$GIT_PROJECT_NAME'.";
+	fi
 
     echo ">> Running build & assemble...";
 	../gradlew ${SETTINGS_FILE_ARGS} build assemble ${GRADLE_ARGS};
