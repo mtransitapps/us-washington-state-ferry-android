@@ -31,6 +31,8 @@ if [ -f ${CUSTOM_SETTINGS_GRADLE_FILE} ]; then
 fi
 
 echo ">> Setup-ing keys...";
+chmod +x keys_setup.sh;
+checkResult $?;
 ./keys_setup.sh;
 RESULT=$?;
 checkResult ${RESULT};
@@ -55,7 +57,10 @@ if [ ${IS_CI} = true ]; then
 	checkResult ${RESULT};
     echo ">> Running lint... DONE";
 
-	declare -a SONAR_PROJECTS=("mtransit-for-android" "commons-android");
+	declare -a SONAR_PROJECTS=(
+	    "mtransit-for-android"
+	    "commons-android"
+	);
 	if contains ${GIT_PROJECT_NAME} ${SONAR_PROJECTS[@]}; then
 		if [[ -z "${MT_SONAR_LOGIN}" ]]; then
 			echo "MT_SONAR_LOGIN environment variable is NOT defined!";
@@ -63,7 +68,7 @@ if [ ${IS_CI} = true ]; then
 		fi
 		echo ">> Running sonar...";
 		../gradlew ${SETTINGS_FILE_ARGS} :${DIRECTORY}:sonarqube \
-			-Dsonar.organization=mtransitapps-github -Dsonar.projectName=$GIT_PROJECT_NAME \
+			-Dsonar.organization=mtransitapps-github -Dsonar.projectName=${GIT_PROJECT_NAME} \
 			-Dsonar.host.url=https://sonarcloud.io -Dsonar.login=${MT_SONAR_LOGIN} ${GRADLE_ARGS}
 		RESULT=$?;
 		checkResult ${RESULT};
@@ -86,6 +91,8 @@ checkResult ${RESULT};
 echo ">> Running assemble release & copy-to-output dir... DONE";
 
 echo ">> Cleaning keys...";
+chmod +x keys_cleanup.sh;
+checkResult $?;
 ./keys_cleanup.sh;
 RESULT=$?;
 checkResult ${RESULT};
