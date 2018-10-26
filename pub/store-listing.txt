@@ -5,7 +5,7 @@ Washington State Ferries for MonTransit.
 Schedule. News.
 ----------
 What's new in this version?:
-Schedule from October 11, 2018 to January 5, 2019.
+Schedule from October 25, 2018 to January 5, 2019.
 News from @WSFerries.
 ----------
 Full description:
