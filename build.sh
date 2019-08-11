@@ -5,13 +5,14 @@ echo ">> Building...";
 DIRECTORY=$(basename ${PWD});
 CUSTOM_SETTINGS_GRADLE_FILE="../settings.gradle.all";
 
-GIT_URL=$(git remote get-url origin); # git config --get remote.origin.url
+GIT_URL=$(git config --get remote.origin.url); # remote get-url origin
 echo ">> Git URL: '$GIT_URL'.";
-GIT_PROJECT_NAME=$(basename -s .git ${GIT_URL});
+GIT_PROJECT_NAME=$(basename -- ${GIT_URL});
+GIT_PROJECT_NAME="${GIT_PROJECT_NAME%.*}"
 echo ">> Git project name: '$GIT_PROJECT_NAME'.";
 if [[ -z "${GIT_PROJECT_NAME}" ]]; then
 	echo "GIT_PROJECT_NAME not found!";
-	exit -1;
+	exit 1;
 fi
 
 IS_CI=false;
@@ -21,12 +22,12 @@ fi
 echo "$DIRECTORY/build.sh > IS_CI:'${IS_CI}'";
 
 GRADLE_ARGS="";
-if [ ${IS_CI} = true ]; then
+if [[ ${IS_CI} = true ]]; then
 	GRADLE_ARGS=" --console=plain";
 fi
 
 SETTINGS_FILE_ARGS="";
-if [ -f ${CUSTOM_SETTINGS_GRADLE_FILE} ]; then
+if [[ -f ${CUSTOM_SETTINGS_GRADLE_FILE} ]]; then
 	SETTINGS_FILE_ARGS=" -c $CUSTOM_SETTINGS_GRADLE_FILE"; #--settings-file
 fi
 
@@ -44,15 +45,15 @@ RESULT=$?;
 checkResult ${RESULT};
 echo ">> Gradle cleaning... DONE";
 
-if [ ${IS_CI} = true ]; then
+if [[ ${IS_CI} = true ]]; then
     echo ">> Running test...";
-	../gradlew ${SETTINGS_FILE_ARGS} :commons-android:test test ${GRADLE_ARGS};
+	../gradlew ${SETTINGS_FILE_ARGS} :commons-android:testDebugUnitTest :app-android:testDebugUnitTest ${GRADLE_ARGS};
 	RESULT=$?;
 	checkResult ${RESULT};
     echo ">> Running test... DONE";
 
     echo ">> Running lint...";
-	../gradlew ${SETTINGS_FILE_ARGS} lint ${GRADLE_ARGS};
+	../gradlew ${SETTINGS_FILE_ARGS} :app-android:lintDebug ${GRADLE_ARGS};
 	RESULT=$?;
 	checkResult ${RESULT};
     echo ">> Running lint... DONE";
@@ -64,7 +65,7 @@ if [ ${IS_CI} = true ]; then
 	if contains ${GIT_PROJECT_NAME} ${SONAR_PROJECTS[@]}; then
 		if [[ -z "${MT_SONAR_LOGIN}" ]]; then
 			echo "MT_SONAR_LOGIN environment variable is NOT defined!";
-			exit -1;
+			exit 1;
 		fi
 		echo ">> Running sonar...";
 		../gradlew ${SETTINGS_FILE_ARGS} :${DIRECTORY}:sonarqube \
@@ -78,7 +79,7 @@ if [ ${IS_CI} = true ]; then
 	fi
 
     echo ">> Running build & assemble...";
-	../gradlew ${SETTINGS_FILE_ARGS} build assemble ${GRADLE_ARGS};
+	../gradlew ${SETTINGS_FILE_ARGS} buildDebug assembleDebug ${GRADLE_ARGS};
 	RESULT=$?;
 	checkResult ${RESULT};
 	echo ">> Running build & assemble... DONE";

@@ -29,10 +29,7 @@ android {
 
     def resValueFr = file("res/values-fr")
 
-    //noinspection GroovyMissingReturnStatement
     defaultConfig {
-        minSdkVersion rootProject.ext.minSdkVersion
-        targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode versionProperties['version.code'] as Integer
         versionName versionProperties['version.name']
         setProperty("archivesBaseName", "${projectName}_v${versionName}_r${versionCode}")
@@ -41,11 +38,14 @@ android {
         } else {
             resConfigs "en"
         }
+        minSdkVersion rootProject.ext.minSdkVersion
+        // minSdkVersion 21 // DEBUG avoid using legacy multidex
+        targetSdkVersion rootProject.ext.targetSdkVersion
     }
 
     signingConfigs {
-        if (keysPropertiesFile.exists()) {
-            release {
+        release {
+            if (keysPropertiesFile.exists()) {
                 storeFile file(keysProperties['key.store'])
                 storePassword keysProperties['key.store.password']
                 keyAlias keysProperties['key.alias']
@@ -55,13 +55,32 @@ android {
     }
 
     buildTypes {
+        debug {
+            versionNameSuffix "_DEBUG"
+
+            // testCoverageEnabled false // DEBUG skip coverage report
+            shrinkResources false
+            minifyEnabled false
+            useProguard false
+            aaptOptions.cruncherEnabled = false
+        }
         //noinspection GroovyMissingReturnStatement
         release {
-            minifyEnabled false
             if (keysPropertiesFile.exists()) {
                 signingConfig signingConfigs.release
             }
+
+            shrinkResources false
+            minifyEnabled false
+            useProguard false
         }
+    }
+
+    //noinspection GroovyMissingReturnStatement
+    lintOptions {
+        abortOnError false
+        checkDependencies true // also check leaf modules
+        ignoreTestSources true
     }
 
     sourceSets {
