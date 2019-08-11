@@ -6,7 +6,7 @@ source keys_files.sh;
 
 if [[ ${#FILES[@]} -lt 1 ]]; then
 	echo "FILES environment variable is NOT defined (need at least 1 empty \"\")!";
-	exit -1;
+	exit 1;
 fi
 
 for FILE in "${FILES[@]}" ; do
@@ -19,7 +19,7 @@ for FILE in "${FILES[@]}" ; do
 
 	git checkout -- ${FILE};
 	RESULT=$?;
-	if [ ${RESULT} -ne 0 ]; then
+	if [[ ${RESULT} -ne 0 ]]; then
 		echo "Resetting decrypted file '$FILE' using 'git checkout' did NOT work!";
 		rm ${FILE}; # deleting file
 		exit ${RESULT};
@@ -27,7 +27,7 @@ for FILE in "${FILES[@]}" ; do
 
 	git diff --name-status --exit-code ${FILE};
 	RESULT=$?;
-	if [ ${RESULT} -ne 0 ]; then
+	if [[ ${RESULT} -ne 0 ]]; then
 		echo "File '$FILE' NOT the same as clear file!";
 		exit ${RESULT};
 	fi
