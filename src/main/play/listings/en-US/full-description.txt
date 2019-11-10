@@ -1,14 +1,3 @@
-Title: Washington State Ferries - Mo…
-----------
-Short description:
-Washington State Ferries for MonTransit.
-Schedule. News.
-----------
-What's new in this version?:
-Schedule from October 31, 2019 to January 4, 2020.
-News from @WSFerries.
-----------
-Full description:
 This app adds Washington State ferries information to MonTransit.
 
 This app provides the ferries schedule as well as the latest news from @WSFerries on Twitter.
@@ -17,7 +6,7 @@ Washington State ferries serve Puget Sound, Salish Sea, Washington, United State
 
 Once this application is installed, the MonTransit app will display ferries information (schedule...).
 
-This application only has a temporary icon and no screen: download the MonTransit app (free) in the "More ..." section bellow or by following this Google Play link http://goo.gl/pCk5mV
+This application only has a temporary icon: download the MonTransit app (free) in the "More ..." section bellow or by following this Google Play link http://goo.gl/pCk5mV
 
 You can install this application on the SD card but it is not recommended.
 
@@ -30,18 +19,3 @@ This app is not related with Washington State Ferries (WSF) and the Washington S
 
 Permissions:
 - Other: required to read the news from Twitter
-----------
-Application type: Applications
-----------
-Category: Transportation
-----------
-Content rating: Low Maturity
-----------
-Website: https://github.com/mtransitapps/us-washington-state-ferry-android
-----------
-Email: mtransit.apps+GooglePlay@gmail.com
-----------
-Phone:
-----------
-Privacy Policy:
-----------
