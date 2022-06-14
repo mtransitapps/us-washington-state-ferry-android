@@ -2,8 +2,10 @@
 4709,0,'Seattle',47
 7309,0,'Bainbridge Isl',73
 7409,0,'Bremerton',74
+10109,0,'Anacortes',101
 11009,0,'Friday Harbor',110
 11309,0,'Lopez Isl',113
+11509,0,'Orcas Isl',115
 11809,0,'Shaw Isl',118
 12809,0,'Edmonds',128
 13109,0,'Anacortes',131
@@ -18,10 +20,13 @@
 92209,0,'Vashon Isl',922
 101309,0,'Lopez Isl',1013
 101509,0,'Orcas Isl',1015
+101809,0,'Shaw Isl',1018
 111709,0,'Port Townsend',1117
 131009,0,'Friday Harbor',1310
+131509,0,'Orcas Isl',1315
 131809,0,'Shaw Isl',1318
 151009,0,'Friday Harbor',1510
+151309,0,'Lopez Isl',1513
 151809,0,'Shaw Isl',1518
 162109,0,'Tahlequah',1621
 171109,0,'Coupeville',1711
