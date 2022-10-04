@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="org.mtransit.android.us_washington_state_ferry"
     tools:ignore="MissingVersion" >
     <application
         android:allowBackup="true"
