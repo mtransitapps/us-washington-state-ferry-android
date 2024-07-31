@@ -2,7 +2,7 @@ This app adds Washington State ferries information to MonTransit.
 
 This app provides the ferries schedule as well as the latest news from @WSFerries on Twitter.
 
-Washington State ferries serve Puget Sound, Salish Sea, Washington, United States.
+Washington State ferries serve Puget Sound, Salish Sea in Washington, United States.
 
 Once this application is installed, the MonTransit app will display ferries information (schedule...).
 
@@ -10,7 +10,8 @@ This application only has a temporary icon: download the MonTransit app (free) i
 
 You can install this application on the SD card but it is not recommended.
 
-The information comes from the GTFS file provided by Washington State Ferries.
+The information comes from the GTFS file provided by Washington State Department Of Transportation.
+https://business.wsdot.wa.gov/Transit/csv_files/wsf/google_transit.zip
 
 This application is free and open-source:
 https://github.com/mtransitapps/us-washington-state-ferry-android
